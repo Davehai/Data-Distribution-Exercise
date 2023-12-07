@@ -24,8 +24,12 @@ void TestServer()
     ilrd::UDPListener udp("127.0.0.1", 4000);
     ilrd::Publisher *pub = ilrd::GetPublisher();
 
+    std::cout << "Press Enter to messages mess" << std::endl;
+    std::cout << "There will be 10 messages" << std::endl;
+    std::cout << "5 for squeares" << std::endl;
+    std::cout << "5 for circles" << std::endl;
     std::cin.get();
-    
+
     for(int i = 0; i < 5; ++i)
     {
         sleep(2);

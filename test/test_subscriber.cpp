@@ -26,6 +26,9 @@ void TestSubscriber()
     ilrd::Subscriber sub_3("127.0.0.1", 7000);
 
     std::cout << "Press Enter to sub" << std::endl;
+    std::cout << "There will be 3 subs" << std::endl;
+    std::cout << "1 for all" << std::endl;
+    std::cout << "2 for squeares" << std::endl;
     std::cin.get();
 
     sub_1.Subscribe("127.0.0.1", 4000, "all");
