@@ -1,7 +1,7 @@
 # Data-Distribution-Exercise
 
 v0.0
-This Exercise is using to main parts:
+This Exercise is using two main parts:
 # Server:
 That contains a publisher udp listener and udp raii
   The publisher uses the udp listener to receive requests to subscribeand to it.
