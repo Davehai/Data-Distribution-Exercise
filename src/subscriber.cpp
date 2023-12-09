@@ -33,6 +33,7 @@ Subscriber::~Subscriber()
 {
     std::string msg = "exit";
     m_run = false;
+    UnSubscribe();
     if(1 == sendto(m_udp_sock.GetSockFD(), reinterpret_cast<const void *>(msg.c_str()), msg.size(), 0,
     reinterpret_cast<const sockaddr*>(&m_udp_sock.GetSockaddr()), sizeof(struct sockaddr_in)))
     {
@@ -57,12 +58,15 @@ bool Subscriber::Subscribe(std::string ip, int port, std::string shape)
 
 void Subscriber::UnSubscribe()
 {
-    if("" != m_server_ip)
+    if("" == m_server_ip)
     {
         return;
     }
 
     MsgServer("unsubscribe", m_server_ip, m_server_port, m_server_shape);
+    m_server_ip = "";
+    m_server_port = 0;
+    m_server_shape = "";
 }
 
 /*******************************************************************************
