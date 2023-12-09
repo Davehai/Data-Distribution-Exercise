@@ -17,7 +17,7 @@ That contains a publisher udp listener and udp raii
     The server isnt complited and only sands strings where the first word is the shape key.
 
 # Subscriber:
-The subscriber is a class that in this case uses udp raii as well to start a fd that listends to messages from the server.
+The subscriber is a class that in this case uses udp raii as well to start a fd that listens to messages from the server.
 # Subscriber notes:
   To initialize a subscriber you need to sand it a string to be the ip and an int for the port (there is no default ctor).
   To subscribe to a server you need to call the Subscribe member function and send the if port and shape you want to subscribe.
