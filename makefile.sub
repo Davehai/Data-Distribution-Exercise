@@ -1,0 +1,32 @@
+cc = g++
+LDFLAGS = -std=c++11 -pedantic-errors -Wall -Wextra
+CFLAGS = -c -std=c++11 -pedantic-errors -Wall -Wextra -Iinclude
+DEBUG = -g
+INCLUDE =./include/
+SRC = ./src/
+TEST = ./test/
+BIN = ./bin/
+EXECTUABLE = client
+OBJTEST = subscriber
+OBJ = shape
+
+all: $(EXECTUABLE) clean run
+
+$(EXECTUABLE): $(OBJTEST).o $(EXECTUABLE).o $(OBJ).o
+	mkdir -p $(BIN)
+	$(cc) $(LDFLAGS) $(OBJTEST).o $(EXECTUABLE).o $(OBJ).o -o $(BIN)$(EXECTUABLE)
+	
+run : $(EXECTUABLE)
+	$(BIN)$(EXECTUABLE)
+	
+$(EXECTUABLE).o: $(SRC)$(EXECTUABLE).cpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(EXECTUABLE).cpp
+	
+$(OBJTEST).o: $(SRC)$(OBJTEST).cpp $(INCLUDE)$(OBJTEST).hpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(OBJTEST).cpp
+	
+$(OBJ).o: $(SRC)$(OBJ).cpp $(INCLUDE)$(OBJ).hpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(OBJ).cpp
+	
+clean:
+	rm *.o

@@ -81,8 +81,14 @@ void Publisher::Notify(std::string subscriber)
     }
 }
 
-void Publisher::Publish(std::string shape)
+void Publisher::Publish(std::string key, std::string shape)
 {
+    if(m_subscribers.find(key) == m_subscribers.end())
+    {
+        ErrorHandler("Invalid key...");
+        return;
+    }
+    
     for(auto runner : m_subscribers["all"])
     {
         if(1 == sendto(m_udp_sock.GetSockFD(), reinterpret_cast<const void *>(shape.c_str()), shape.size(), 0,
@@ -90,14 +96,6 @@ void Publisher::Publish(std::string shape)
         {
             ErrorHandler("sendto fail...");
         }
-    }
-
-    std::stringstream strstream(shape);
-    std::string key;
-    std::getline(strstream, key, ' ');
-    if(m_subscribers.find(key) == m_subscribers.end())
-    {
-        return;
     }
 
     for(auto runner : m_subscribers[key])
@@ -110,6 +108,11 @@ void Publisher::Publish(std::string shape)
     }
 }
 
+void Publisher::AddNewKey(std::string key)
+{
+    m_subscribers[key];
+}
+
 /*******************************************************************************
  * Class private function definition
 *******************************************************************************/
@@ -120,7 +123,14 @@ Publisher::Publisher(): m_udp_sock(INADDR_ANY, htons(8080))
 
 void Publisher::Subscribe(std::string &key, Subscriber &sub)
 {
-    m_subscribers[key].push_back(sub);
+    try
+    {
+        m_subscribers.at(key).push_back(sub);
+    }
+    catch(const std::exception& e)
+    {
+        ErrorHandler("Invalid key...");
+    }
 }
 
 void Publisher::UnSubscribe(std::string &key, Subscriber &sub)

@@ -21,7 +21,7 @@ namespace ilrd
 class Subscriber
 {
 public:
-    Subscriber();
+    Subscriber(std::string ip, int port);
     ~Subscriber();
     bool Subscribe(std::string ip, int port, std::string shape);
     void UnSubscribe();
@@ -30,7 +30,9 @@ private:
     void ErrorHandler(std::string error);
     bool MsgServer(std::string msg_type, std::string ip, int port, std::string shape);
     std::thread m_thread;
-    int m_sock_fd;
+    UDPSock m_udp_sock;
+    std::string m_ip;
+    int m_port;
     std::string m_server_ip;
     int m_server_port;
     std::string m_server_shape;

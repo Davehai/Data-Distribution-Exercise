@@ -30,7 +30,8 @@ struct Subscriber
     friend Publisher *GetPublisher();
     //~Publisher(); = default
     void Notify(std::string subscriber);    //chose "all" to get notify on all shapes
-    void Publish(std::string shape);
+    void Publish(std::string key, std::string shape);
+    void AddNewKey(std::string key);
 private:
     Publisher();
     void Subscribe(std::string &key, Subscriber &sub);

@@ -1,0 +1,42 @@
+cc = g++
+LDFLAGS = -std=c++11 -pedantic-errors -Wall -Wextra
+CFLAGS = -c -std=c++11 -pedantic-errors -Wall -Wextra -Iinclude
+DEBUG = -g
+INCLUDE =./include/
+SRC = ./src/
+TEST = ./test/
+BIN = ./bin/
+EXECTUABLE = server
+OBJ_1 = publisher
+OBJ_2 = udp_raii
+OBJ_3 = udp_listener
+OBJ_4 = shape
+
+
+all: $(EXECTUABLE) clean run
+
+$(EXECTUABLE): $(EXECTUABLE).o $(OBJ_1).o $(OBJ_2).o $(OBJ_3).o $(OBJ_4).o
+	mkdir -p $(BIN)
+	$(cc) $(LDFLAGS) $(EXECTUABLE).o $(OBJ_1).o $(OBJ_2).o $(OBJ_3).o $(OBJ_4).o -o $(BIN)$(EXECTUABLE)
+	
+run : $(EXECTUABLE)
+	$(BIN)$(EXECTUABLE)
+	
+$(EXECTUABLE).o: $(SRC)$(EXECTUABLE).cpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(EXECTUABLE).cpp
+	
+$(OBJ_1).o: $(SRC)$(OBJ_1).cpp $(INCLUDE)$(OBJ_1).hpp $(OBJ_2).o
+	$(cc) $(CFLAGS) $(DEBUG) $(OBJ_2).o $(SRC)$(OBJ_1).cpp
+	
+$(OBJ_2).o: $(SRC)$(OBJ_2).cpp $(INCLUDE)$(OBJ_2).hpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(OBJ_2).cpp
+	
+$(OBJ_3).o: $(SRC)$(OBJ_3).cpp $(INCLUDE)$(OBJ_3).hpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(OBJ_3).cpp
+	
+$(OBJ_4).o: $(SRC)$(OBJ_4).cpp $(INCLUDE)$(OBJ_4).hpp
+	$(cc) $(CFLAGS) $(DEBUG) $(SRC)$(OBJ_4).cpp
+
+	
+clean:
+	rm *.o

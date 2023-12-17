@@ -21,23 +21,36 @@ int main()
 
 void TestSubscriber()
 {
-    ilrd::Subscriber sub_1("127.0.0.1", 9999);
-   // ilrd::Subscriber sub_2("127.0.0.1", 9000);
+    ilrd::Subscriber sub;
+    int input = 0;
 
-    std::cout << "Press Enter to sub" << std::endl;
-    std::cout << "There will be 3 subs" << std::endl;
-    std::cout << "1 for all" << std::endl;
-    std::cout << "2 for squeares" << std::endl;
+    std::cout << "What will you like to subscribe to:" << std::endl;
+    std::cout << "[1] = all" << std::endl;
+    std::cout << "[2] = squeare" << std::endl;
+    std::cout << "[3] = circle" << std::endl;
+    std::cin >> input;
     std::cin.get();
 
-    sub_1.Subscribe("127.0.0.1", 4000, "all");
-   //sub_2.Subscribe("127.0.0.1", 4000, "squeares");
+    switch (input)
+    {
+    case 1:
+        sub.Subscribe("127.0.0.1", 4000, "all");
+        break;
+    case 2:
+        sub.Subscribe("127.0.0.1", 4000, "square");
+        break;
+    case 3:
+        sub.Subscribe("127.0.0.1", 4000, "circle");
+        break;
+    
+    default:
+        break;
+    }
 
     std::cout << "Press Enter to unsub" << std::endl;
     std::cin.get();
 
-    sub_1.UnSubscribe();
-    //sub_2.UnSubscribe();
+    sub.UnSubscribe();
 
     std::cout << "Press Enter to end" << std::endl;
     std::cin.get();

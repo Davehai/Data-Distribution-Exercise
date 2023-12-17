@@ -30,7 +30,7 @@ void TestServer()
     std::cout << "5 for circles" << std::endl;
     std::cin.get();
 
-    for(int i = 0; i < 5; ++i)
+    for(;;)
     {
         sleep(2);
         std::cout << "Sending" <<std::endl;
